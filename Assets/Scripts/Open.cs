@@ -31,8 +31,8 @@ public class Open : MonoBehaviour
         Prompttxt.text = "½ÐÂIÀ»¿Ã¹õ";
         Prompttxt.color = new Color(1.0f, 0.8470588f, 0.3607843f, 1.0f);
 
-        BirthDay = new DateTime(DateTime.Now.Year, 10, 08, 17, 51, 0);
-        //BirthDay = new DateTime(DateTime.Now.Year, 11, 24, 0, 0, 0);
+        //BirthDay = new DateTime(DateTime.Now.Year, 10, 08, 17, 51, 0);
+        BirthDay = new DateTime(DateTime.Now.Year, 11, 24, 0, 0, 0);
 
         open = false;
 
@@ -42,17 +42,21 @@ public class Open : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Prompttxt.color.a > 0.0f && b)
+        if (Prompttxt.color.a > 0.0f)
         {
+            
             Prompttxt.color = Color.Lerp(Prompttxt.color, new(1.0f, 0.8470588f, 0.3607843f, 0.0f), FadeTime * Time.deltaTime);
             Debug.Log(Prompttxt.color.a);
+            
         }
-        
-        else if (!b && Prompttxt.color.a < 1.0f)
+        else
         {
-            Prompttxt.color = Color.Lerp(Prompttxt.color, new(1.0f, 0.8470588f, 0.3607843f, 1.0f), FadeTime * Time.deltaTime);
+
         }
+
+        
+        
+        
         
 
         
