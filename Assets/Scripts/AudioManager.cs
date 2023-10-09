@@ -20,22 +20,12 @@ public class AudioManager : MonoBehaviour
         _instance = this;
     }
 
-    public AudioClip BackGroundAudio , OpenAudio;
+    public AudioClip BackGroundAudio , OpenAudio , Audio1;
     public AudioSource efxsource;
 
     public void PlayAudio(AudioClip Clip)
     {
         efxsource.clip = Clip;
-
-        /*switch (Clip.name)
-        {
-            case "BackGroundAudio":
-                efxsource.volume = 1.0f;
-                break;
-
-
-        }*/
-
 
         efxsource.PlayOneShot(Clip);
     }

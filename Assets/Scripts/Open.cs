@@ -24,7 +24,7 @@ public class Open : MonoBehaviour
     public bool Fadein , Fadeout; // 淡入淡出
 
     public CanvasGroup CanvasG , CanvasS;
-    GameObject Scroll; // 卷軸
+    GameObject Cam; 
     GameObject Bottom; // 容器
 
     // Start is called before the first frame update
@@ -38,8 +38,8 @@ public class Open : MonoBehaviour
 
         Fadein = true;
         Fadeout = false;
-        BirthDay = new DateTime(DateTime.Now.Year, 10, 9, 19, 18, 0);
-        //BirthDay = new DateTime(DateTime.Now.Year, 11, 24, 0, 0, 0);
+        //BirthDay = new DateTime(DateTime.Now.Year, 10, 9, 19, 18, 0);
+        BirthDay = new DateTime(DateTime.Now.Year, 11, 24, 0, 0, 0);
 
         IsOpen = true;
         open = false;
@@ -47,6 +47,7 @@ public class Open : MonoBehaviour
         
 
         Bottom = GameObject.Find("Bottom");
+        Cam = GameObject.FindWithTag("MainCamera");
 
         myAnimator = GetComponent<Animator>();
     }
@@ -70,8 +71,8 @@ public class Open : MonoBehaviour
                 AudioManager.Instance.PlayAudio(AudioManager.Instance.OpenAudio);
                 IsOpen = false;
 
-                
-
+                Cam.GetComponent<AudioSource>().clip = AudioManager.Instance.Audio1;
+                Cam.GetComponent<AudioSource>().Play();
             }
 
             if (CanvasS.alpha < 1 && !IsOpen)
@@ -101,7 +102,7 @@ public class Open : MonoBehaviour
             if (Span.TotalSeconds < 0)
             {
                 open = true;
-                Timetxt.text = " 寶箱已可開啟! ";
+                Timetxt.text = " 寶箱已可開啟 !";
                 Prompttxt.gameObject.SetActive(true);
 
                 if (Fadein)
@@ -141,7 +142,7 @@ public class Open : MonoBehaviour
         }
         else
         {
-            Timetxt.text = " 寶箱過期! ";
+            Timetxt.text = " 寶箱過期 !";
         }
 
 
