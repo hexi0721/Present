@@ -7,20 +7,25 @@ using System;
 public class Open : MonoBehaviour
 {
 
-    DateTime BirthDay;
-    TimeSpan Span;
+    DateTime BirthDay; // 生日當天
+    TimeSpan Span; // 時間差
 
-    Text Timetxt;
+    // TXT
+    Text Timetxt; 
     string TimeString;
     Text Prompttxt;
-    
 
+    // 動畫
     private Animator myAnimator;
 
-    bool open;
+    bool open , IsOpen; // 開啟寶箱判斷
 
-    float FadeTime = 1.0f;
-    bool b = true;
+    float FadeTime = 1.0f; 
+    public bool Fadein , Fadeout; // 淡入淡出
+
+    public CanvasGroup CanvasG , CanvasS;
+    GameObject Scroll; // 卷軸
+    GameObject Bottom; // 容器
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +34,19 @@ public class Open : MonoBehaviour
         Timetxt.text = "";
         Prompttxt = GameObject.Find("Prompt").GetComponent<Text>();
         Prompttxt.text = "請點擊螢幕";
-        Prompttxt.color = new Color(1.0f, 0.8470588f, 0.3607843f, 1.0f);
+        Prompttxt.gameObject.SetActive(false);
 
-        //BirthDay = new DateTime(DateTime.Now.Year, 10, 08, 17, 51, 0);
-        BirthDay = new DateTime(DateTime.Now.Year, 11, 24, 0, 0, 0);
+        Fadein = true;
+        Fadeout = false;
+        BirthDay = new DateTime(DateTime.Now.Year, 10, 9, 19, 18, 0);
+        //BirthDay = new DateTime(DateTime.Now.Year, 11, 24, 0, 0, 0);
 
+        IsOpen = true;
         open = false;
+
+        
+
+        Bottom = GameObject.Find("Bottom");
 
         myAnimator = GetComponent<Animator>();
     }
@@ -42,63 +54,106 @@ public class Open : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Prompttxt.color.a > 0.0f)
+
+        Span = BirthDay.Subtract(DateTime.Now);
+
+        
+
+
+        if (Span.Days >= -1)
         {
-            
-            Prompttxt.color = Color.Lerp(Prompttxt.color, new(1.0f, 0.8470588f, 0.3607843f, 0.0f), FadeTime * Time.deltaTime);
-            Debug.Log(Prompttxt.color.a);
-            
+            if (Input.GetMouseButtonDown(0) && open && IsOpen)
+            {
+                myAnimator.SetTrigger("Open");
+                Bottom.SetActive(false);
+                
+                AudioManager.Instance.PlayAudio(AudioManager.Instance.OpenAudio);
+                IsOpen = false;
+
+                
+
+            }
+
+            if (CanvasS.alpha < 1 && !IsOpen)
+            {
+                CanvasS.alpha += 0.4f * Time.deltaTime;
+
+            }
+
+            if (Span.Duration().Days > 0)
+            {
+                TimeString = Span.Duration().Days + "天" + Span.Duration().Hours + "時" + Span.Duration().Minutes + "分" + Span.Duration().Seconds + "秒";
+            }
+            else if (Span.Duration().Hours > 0)
+            {
+                TimeString = Span.Duration().Hours + "時" + Span.Duration().Minutes + "分" + Span.Duration().Seconds + "秒";
+            }
+            else if (Span.Duration().Minutes > 0)
+            {
+                TimeString = Span.Duration().Minutes + "分" + Span.Duration().Seconds + "秒";
+            }
+            else if (Span.Duration().Seconds > 0)
+            {
+                TimeString = Span.Duration().Seconds + "秒";
+            }
+
+
+            if (Span.TotalSeconds < 0)
+            {
+                open = true;
+                Timetxt.text = " 寶箱已可開啟! ";
+                Prompttxt.gameObject.SetActive(true);
+
+                if (Fadein)
+                {
+                    if (CanvasG.alpha < 1)
+                    {
+                        CanvasG.alpha += FadeTime * Time.deltaTime;
+
+                        if (CanvasG.alpha >= 1)
+                        {
+                            Fadein = false;
+                            FadeOut();
+                        }
+                    }
+                }
+
+                if (Fadeout)
+                {
+                    if (CanvasG.alpha >= 0)
+                    {
+                        CanvasG.alpha -= FadeTime * Time.deltaTime;
+
+                        if (CanvasG.alpha == 0)
+                        {
+                            Fadeout = false;
+                            FadeIn();
+                        }
+                    }
+                }
+            }
+            else if (!open)
+            {
+                Timetxt.text = " 寶箱打開剩餘時間 " + TimeString;
+            }
+
+
         }
         else
         {
-
-        }
-
-        
-        
-        
-        
-
-        
-
-
-        if (Input.GetMouseButtonDown(0) && open)
-        {
-            myAnimator.SetTrigger("Open");
-            
-        }
-
-        Span = DateTime.Now.Subtract(BirthDay);
-
-
-        if (Span.Duration().Days <= 0)
-        {
-            TimeString = Span.Duration().Hours + "時" + Span.Duration().Minutes + "分" + Span.Duration().Seconds + "秒";
-        }
-        
-        if (Span.Duration().Hours <= 0)
-        {
-            TimeString = Span.Duration().Minutes + "分" + Span.Duration().Seconds + "秒";
-        }
-
-        if (Span.Duration().Minutes <= 0)
-        {
-            TimeString = Span.Duration().Seconds + "秒";
+            Timetxt.text = " 寶箱過期! ";
         }
 
 
-        if(Span.TotalSeconds > 0)
-        {
-            open = true;
-            Timetxt.text = " 寶箱已可開啟 ";
-        }
-        else if(!open)
-        {
-            Timetxt.text = " 寶箱打開剩餘時間 " + TimeString;
-        }
+    }
 
+    void FadeIn()
+    {
+        Fadein = true;
+    }
 
-        
-
+    void FadeOut()
+    {
+        Fadeout = true;
     }
 }
