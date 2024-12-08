@@ -61,7 +61,7 @@ public class OpenCard : MonoBehaviour
     }
     */
 
-    public void AnimatorEnd()
+    public void AnimatorEnd() // 動畫結束時，觸發事件 
     {
         card.SetActive(false);
         scratchZone.SetActive(true);
