@@ -24,7 +24,7 @@ public class Open : MonoBehaviour
     public bool Fadein , Fadeout; // 淡入淡出
 
     public CanvasGroup CanvasG , CanvasS;
-    GameObject Cam; 
+    
     GameObject Bottom; // 容器
 
     
@@ -47,7 +47,7 @@ public class Open : MonoBehaviour
         
 
         Bottom = GameObject.Find("Bottom");
-        Cam = GameObject.FindWithTag("MainCamera");
+        
 
         myAnimator = GetComponent<Animator>();
     }
