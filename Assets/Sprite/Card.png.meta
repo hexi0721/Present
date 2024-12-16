@@ -3,7 +3,7 @@ guid: 56b996978427bf44186434ab5ef5868a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -75,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -87,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -99,6 +103,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -955,49 +973,48 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ezgif-6-942cab6f7c_5: 952270500
-      ezgif-6-942cab6f7c_8: -1525713918
-      ezgif-6-942cab6f7c_19: -761938215
-      ezgif-6-942cab6f7c_18: -41682924
-      ezgif-6-942cab6f7c_7: -1826842955
-      ezgif-6-942cab6f7c_16: -941736558
-      ezgif-6-942cab6f7c_21: 736087076
-      ezgif-6-942cab6f7c_27: -2063182427
-      ezgif-6-942cab6f7c_28: 1972277445
-      ezgif-6-942cab6f7c_9: 1974629541
-      ezgif-6-942cab6f7c_23: 544024384
-      ezgif-6-942cab6f7c_24: 964628628
+      ezgif-6-942cab6f7c_0: 1133431655
       ezgif-6-942cab6f7c_1: -1866920818
-      ezgif-6-942cab6f7c_13: 220249020
-      ezgif-6-942cab6f7c_14: -843752511
-      ezgif-6-942cab6f7c_20: 515701329
       ezgif-6-942cab6f7c_10: 338475704
       ezgif-6-942cab6f7c_11: -151264672
-      ezgif-6-942cab6f7c_35: 448920948
-      ezgif-6-942cab6f7c_39: -1073377401
-      ezgif-6-942cab6f7c_34: -265011938
-      ezgif-6-942cab6f7c_37: -655398545
-      ezgif-6-942cab6f7c_25: -1315654018
-      ezgif-6-942cab6f7c_4: 881224727
-      ezgif-6-942cab6f7c_26: 869678061
-      ezgif-6-942cab6f7c_30: -1081754583
-      ezgif-6-942cab6f7c_17: -1607496553
-      ezgif-6-942cab6f7c_31: -2106951153
-      ezgif-6-942cab6f7c_36: -1523759711
-      ezgif-6-942cab6f7c_2: -1321439320
       ezgif-6-942cab6f7c_12: -1021743929
-      ezgif-6-942cab6f7c_32: -45293948
+      ezgif-6-942cab6f7c_13: 220249020
+      ezgif-6-942cab6f7c_14: -843752511
+      ezgif-6-942cab6f7c_15: -1440309947
+      ezgif-6-942cab6f7c_16: -941736558
+      ezgif-6-942cab6f7c_17: -1607496553
+      ezgif-6-942cab6f7c_18: -41682924
+      ezgif-6-942cab6f7c_19: -761938215
+      ezgif-6-942cab6f7c_2: -1321439320
+      ezgif-6-942cab6f7c_20: 515701329
+      ezgif-6-942cab6f7c_21: 736087076
       ezgif-6-942cab6f7c_22: 1602375994
-      ezgif-6-942cab6f7c_38: -1940178163
+      ezgif-6-942cab6f7c_23: 544024384
+      ezgif-6-942cab6f7c_24: 964628628
+      ezgif-6-942cab6f7c_25: -1315654018
+      ezgif-6-942cab6f7c_26: 869678061
+      ezgif-6-942cab6f7c_27: -2063182427
+      ezgif-6-942cab6f7c_28: 1972277445
       ezgif-6-942cab6f7c_29: 1911421382
       ezgif-6-942cab6f7c_3: 1335264658
+      ezgif-6-942cab6f7c_30: -1081754583
+      ezgif-6-942cab6f7c_31: -2106951153
+      ezgif-6-942cab6f7c_32: -45293948
       ezgif-6-942cab6f7c_33: 1346234957
-      ezgif-6-942cab6f7c_0: 1133431655
-      ezgif-6-942cab6f7c_15: -1440309947
+      ezgif-6-942cab6f7c_34: -265011938
+      ezgif-6-942cab6f7c_35: 448920948
+      ezgif-6-942cab6f7c_36: -1523759711
+      ezgif-6-942cab6f7c_37: -655398545
+      ezgif-6-942cab6f7c_38: -1940178163
+      ezgif-6-942cab6f7c_39: -1073377401
+      ezgif-6-942cab6f7c_4: 881224727
+      ezgif-6-942cab6f7c_5: 952270500
       ezgif-6-942cab6f7c_6: 1790912349
-  spritePackingTag: 
+      ezgif-6-942cab6f7c_7: -1826842955
+      ezgif-6-942cab6f7c_8: -1525713918
+      ezgif-6-942cab6f7c_9: 1974629541
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

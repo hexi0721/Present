@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class OpenCard : MonoBehaviour
 {
 
-    public GameObject scratchZone , card;
+    public GameObject scratchZone , card , gestureSlip;
 
     bool isFadeIn;
     
@@ -21,6 +21,7 @@ public class OpenCard : MonoBehaviour
     private void Start()
     {
         scratchZone.SetActive(false);
+        gestureSlip.SetActive(false);
         isFadeIn = false;
     }
 
@@ -65,7 +66,7 @@ public class OpenCard : MonoBehaviour
     {
         card.SetActive(false);
         scratchZone.SetActive(true);
-
+        gestureSlip.SetActive(true);
         isFadeIn = true;
     }
 
@@ -79,6 +80,7 @@ public class OpenCard : MonoBehaviour
         }
 
         scratchZone.GetComponent<CanvasGroup>().alpha += Time.deltaTime;
+        
     }
 
 }

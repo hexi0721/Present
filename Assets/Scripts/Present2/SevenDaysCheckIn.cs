@@ -9,40 +9,44 @@ using UnityEngine.UI;
 using System.Linq;
 
 
-[System.Serializable]
-public class CheckInBox
-{
-    [SerializeField] Transform _transform;
-    [SerializeField] int _int;
-
-    public CheckInBox(Transform _transform, int _int = 0)
-    {
-        this._transform = _transform;
-        this._int = _int;
-    }
-
-}
 
 
 
 public class SevenDaysCheckIn : MonoBehaviour
 {
 
-    DateTime birthDay; // 生日當天
+    [System.Serializable]
+    public class CheckInBox
+    {
+        public Transform _transform;
+        [SerializeField] int _int;
+
+        public CheckInBox(Transform _transform, int _int = 0)
+        {
+            this._transform = _transform;
+            this._int = _int;
+        }
+
+        public int Getint
+        {
+            get => _int;
+        }
+
+    }
+
+    DateTime birthDay;
     [SerializeField] int startDay , today;
-    TimeSpan Span; // 時間差
+    // TimeSpan Span; // 時間差
 
     [SerializeField] GameObject checkInBoxContainer;
-    [SerializeField] List<CheckInBox> checkInBoxList= new List<CheckInBox>() ;
+    [SerializeField] List<CheckInBox> checkInBoxList= new List<CheckInBox>();
+    public Sprite sprite;
 
-    Dictionary<int, string> myDictionary;
+    Dictionary<int, string> myDictionary; 
 
     [SerializeField] GameObject continueButton;
     [SerializeField] GameObject birthdayCard;
 
-
-    // 紀錄哪幾天登錄過
-    
 
     private void Start()
     {
@@ -57,15 +61,14 @@ public class SevenDaysCheckIn : MonoBehaviour
             { 6 , "Day7"}
         };
 
-
+        birthdayCard.SetActive(false);
         continueButton.SetActive(false);
 
-        
-
-        birthDay = new DateTime(DateTime.Now.Year, 12, 19, 0, 0, 0);
+        // 修改生日時間
+        birthDay = new DateTime(DateTime.Now.Year, 12, 16, 0, 0, 0);
         startDay = birthDay.Day - 6;
         today = DateTime.Today.Day;
-
+        //
         
 
         if(startDay <= today && today <= birthDay.Day)
@@ -77,17 +80,40 @@ public class SevenDaysCheckIn : MonoBehaviour
             DeletePlayerPrefsAll();
         }
         */
-        //Span = birthDay.Subtract(DateTime.Now);
-        //Debug.Log(Span.Days +  " " + (7 - Span.Days + 1));
-        PlayerPrefs.SetInt("Day" +  today + 1, 1);
-        Debug.Log(PlayerPrefs.GetInt("Day" + today + 1));
+        
+        string tmpString = "Day" + (today + 1).ToString();
+        PlayerPrefs.SetInt(tmpString , 1);
+
         for (int i = 0; i < checkInBoxContainer.transform.childCount; i++)
         {
-            Debug.Log(myDictionary[i]);
-            Debug.Log(PlayerPrefs.GetInt("Day" + today + 1) + " test2");
+            // 當天動畫
+            if (today == i) 
+            {
+                checkInBoxContainer.transform.GetChild(i).GetComponent<Animator>().enabled = true;
+            }
+
+            // 檢測七天登入
+            Debug.Log($"第{i + 1}天 : " + PlayerPrefs.GetInt(myDictionary[i]));
+            //
             checkInBoxList.Add(new CheckInBox(checkInBoxContainer.transform.GetChild(i).transform , PlayerPrefs.GetInt(myDictionary[i])));
+
+            var tmpCheckInBox = checkInBoxList[i];
+
+            if (tmpCheckInBox.Getint == 1 && today != i)
+            {
+                tmpCheckInBox._transform.GetChild(0).GetComponent<Image>().sprite = sprite;
+            }
+                
         }
-        
+        /*
+        foreach(var CheckInBox in checkInBoxList)
+        {
+            if (CheckInBox.Getint == 1 && )
+            {
+                CheckInBox._transform.GetChild(0).GetComponent<Image>().sprite = sprite;
+            }
+        }
+        */        
     }
 
     private void Update()
@@ -103,7 +129,7 @@ public class SevenDaysCheckIn : MonoBehaviour
 
     private void DeletePlayerPrefsAll()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
