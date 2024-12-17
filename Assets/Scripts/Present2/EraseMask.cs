@@ -5,16 +5,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class EraseMask: MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class EraseMask: MonoBehaviour
 {
     //是否擦除
     public bool isStartEraser;
     //是否擦拭結束
     public bool isEndEraser;
-    //開始事件
-    //public Action eraserStartEvent;
-    //結束事件
-    //public Action eraserEndEvent;
+
     public RawImage uiTex;
     public Image image;
     Texture2D tex;
@@ -27,6 +24,8 @@ public class EraseMask: MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     public int rate;
     float maxColorA;
     float colorA;
+
+    public GameObject gestureSlip;
     
     void Awake()
     {
@@ -48,8 +47,28 @@ public class EraseMask: MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         float scaleH = image.GetComponent<RectTransform>().rect.height / mHeight;
         uiTex.gameObject.GetComponent<RectTransform>().localScale = new Vector3(scaleW , scaleH , 0);
 
-        
     }
+
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnPointerDown(Input.mousePosition);
+
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            OnPointerUp();
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            OnDrag(Input.mousePosition);
+        }
+    }
+
     /// <summary>
     /// 貝塞爾平滑
     /// </summary>
@@ -79,24 +98,24 @@ public class EraseMask: MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     Vector2 penultPos;//倒數第二個點
     float radius = 12f;
     float distance = 1f;
-    #region 事件
-    public void OnPointerDown(PointerEventData eventData)
+    
+    
+    public void OnPointerDown(Vector2 position)
     {
         if (isEndEraser) { return; }
 
-        penultPos = eventData.position;
-        CheckPoint(penultPos);
+        CheckPoint(position);
     }
-
-    public void OnDrag(PointerEventData eventData)
+    
+    public void OnDrag(Vector2 position)
     {
         if (isEndEraser) { return; }
-        if (twoPoints && Vector2.Distance(eventData.position, lastPos) > distance)//如果兩次記錄的鼠標坐標距離大於一定的距離，開始記錄鼠標的點
+        if (twoPoints && Vector2.Distance(position, lastPos) > distance)//如果兩次記錄的鼠標坐標距離大於一定的距離，開始記錄鼠標的點
         {
-            Vector2 pos = eventData.position;
+            Vector2 pos = position;
             float dis = Vector2.Distance(lastPos, pos);
 
-            CheckPoint(eventData.position);
+            CheckPoint(position);
             int segments = (int)(dis / radius);//計算出平滑的段數                                              
             segments = Mathf.Clamp(segments , 1 , 10);
                 
@@ -112,19 +131,17 @@ public class EraseMask: MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         else
         {
             twoPoints = true;
-            lastPos = eventData.position;
+            lastPos = position;
         }
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnPointerUp()
     {
         if (isEndEraser) { return; }
 
         twoPoints = false;
     }
 
-
-    #endregion
     void CheckPoint(Vector3 pScreenPos)
     {
 
@@ -159,11 +176,6 @@ public class EraseMask: MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             {
                 isStartEraser = true;
                 InvokeRepeating("getTransparentPercent", 0f, 0.2f);
-                //eraseEvent.Invoke();
-                /*
-                if (eraserStartEvent != null)
-                    eraserStartEvent.Invoke();
-                */
             }
             
         
@@ -186,11 +198,8 @@ public class EraseMask: MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             isEndEraser = true;
             CancelInvoke("getTransparentPercent");
             uiTex.gameObject.SetActive(false);
-            //觸發結束事件
-            /*
-            if (eraserEndEvent != null)
-                eraserEndEvent.Invoke();
-            */
+            
         }
     }
+
 }

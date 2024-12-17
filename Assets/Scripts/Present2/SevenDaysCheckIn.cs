@@ -8,10 +8,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-
-
-
-
 public class SevenDaysCheckIn : MonoBehaviour
 {
 
@@ -65,7 +61,7 @@ public class SevenDaysCheckIn : MonoBehaviour
         continueButton.SetActive(false);
 
         // 修改生日時間
-        birthDay = new DateTime(DateTime.Now.Year, 12, 16, 0, 0, 0);
+        birthDay = new DateTime(DateTime.Now.Year, 12, 17, 0, 0, 0);
         startDay = birthDay.Day - 6;
         today = DateTime.Today.Day;
         //
@@ -105,15 +101,7 @@ public class SevenDaysCheckIn : MonoBehaviour
             }
                 
         }
-        /*
-        foreach(var CheckInBox in checkInBoxList)
-        {
-            if (CheckInBox.Getint == 1 && )
-            {
-                CheckInBox._transform.GetChild(0).GetComponent<Image>().sprite = sprite;
-            }
-        }
-        */        
+    
     }
 
     private void Update()

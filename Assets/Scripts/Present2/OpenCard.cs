@@ -8,7 +8,7 @@ public class OpenCard : MonoBehaviour
 {
 
     public GameObject scratchZone , card , gestureSlip;
-
+    public EraseMask eraseMask;
     bool isFadeIn;
     
 
@@ -31,6 +31,11 @@ public class OpenCard : MonoBehaviour
         if (isFadeIn)
         {
             FadeIn();
+        }
+
+        if (gestureSlip.activeSelf && Input.GetMouseButtonDown(0))
+        {
+            gestureSlip.SetActive(false);
         }
     }
 
@@ -74,13 +79,10 @@ public class OpenCard : MonoBehaviour
     void FadeIn()
     {
 
-        if(scratchZone.GetComponent<CanvasGroup>().alpha == 1)
+        if(scratchZone.GetComponent<CanvasGroup>().alpha < 1)
         {
-            return;
+            scratchZone.GetComponent<CanvasGroup>().alpha += Time.deltaTime;
         }
-
-        scratchZone.GetComponent<CanvasGroup>().alpha += Time.deltaTime;
-        
     }
 
 }
