@@ -61,7 +61,7 @@ public class SevenDaysCheckIn : MonoBehaviour
         continueButton.SetActive(false);
 
         // 修改生日時間
-        birthDay = new DateTime(DateTime.Now.Year, 12, 17, 0, 0, 0);
+        birthDay = new DateTime(DateTime.Now.Year, 12, 18, 0, 0, 0);
         startDay = birthDay.Day - 6;
         today = DateTime.Today.Day;
         //
