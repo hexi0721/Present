@@ -25,7 +25,8 @@ public class EraseMask: MonoBehaviour
     float maxColorA;
     float colorA;
 
-    public GameObject gestureSlip;
+    public GameObject gestureSlip , rewardTreasure;
+    
     
     void Awake()
     {
@@ -47,6 +48,8 @@ public class EraseMask: MonoBehaviour
         float scaleH = image.GetComponent<RectTransform>().rect.height / mHeight;
         uiTex.gameObject.GetComponent<RectTransform>().localScale = new Vector3(scaleW , scaleH , 0);
 
+        
+        
     }
 
 
@@ -198,7 +201,8 @@ public class EraseMask: MonoBehaviour
             isEndEraser = true;
             CancelInvoke("getTransparentPercent");
             uiTex.gameObject.SetActive(false);
-            
+
+            rewardTreasure.SetActive(true);
         }
     }
 

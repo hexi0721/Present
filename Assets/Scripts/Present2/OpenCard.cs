@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class OpenCard : MonoBehaviour
 {
 
-    public GameObject scratchZone , card , gestureSlip;
+    public GameObject scratchZone , card , gestureSlip , rewardTreasure;
+    
     public EraseMask eraseMask;
     bool isFadeIn;
     
@@ -20,8 +21,11 @@ public class OpenCard : MonoBehaviour
 
     private void Start()
     {
+        
+        
         scratchZone.SetActive(false);
         gestureSlip.SetActive(false);
+        rewardTreasure.SetActive(false);
         isFadeIn = false;
     }
 
@@ -36,6 +40,7 @@ public class OpenCard : MonoBehaviour
         if (gestureSlip.activeSelf && Input.GetMouseButtonDown(0))
         {
             gestureSlip.SetActive(false);
+
         }
     }
 
@@ -72,6 +77,7 @@ public class OpenCard : MonoBehaviour
         card.SetActive(false);
         scratchZone.SetActive(true);
         gestureSlip.SetActive(true);
+        rewardTreasure.SetActive(false);
         isFadeIn = true;
     }
 
