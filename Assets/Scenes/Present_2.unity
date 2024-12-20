@@ -244,8 +244,7 @@ MonoBehaviour:
   scratchZone: {fileID: 362530667}
   card: {fileID: 742665435}
   gestureSlip: {fileID: 104547746}
-  rewardTreasure: {fileID: 511625191}
-  eraseMask: {fileID: 362530669}
+  rewardTreasure: {fileID: 1397419559}
 --- !u!95 &1156943
 Animator:
   serializedVersion: 5
@@ -1094,10 +1093,10 @@ MonoBehaviour:
   isEndEraser: 0
   uiTex: {fileID: 1131379864}
   image: {fileID: 628386261}
-  brushSize: 75
-  rate: 80
+  brushSize: 100
+  rate: 50
   gestureSlip: {fileID: 104547746}
-  rewardTreasure: {fileID: 511625191}
+  rewardTreasure: {fileID: 1397419559}
 --- !u!225 &362530670
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1505,6 +1504,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d5b24293791fc49a8a73ffd028d3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drink:
+  - {fileID: 21300000, guid: 36fb4b23abdcb8e459af62d30b2f423c, type: 3}
+  - {fileID: 21300000, guid: 4632b8c15d7a9124cadefc2b9c83e508, type: 3}
+  - {fileID: 21300000, guid: d003885e31054734f980e95d6498ec9d, type: 3}
+  - {fileID: 21300000, guid: f038fd92f67c8a74caa24b31c53c1dbf, type: 3}
+  sevenDaysCheckIn: {fileID: 1229373369}
+  rewardContainer: {fileID: 773536702}
+  reward: {fileID: 2093467434}
 --- !u!95 &511625196
 Animator:
   serializedVersion: 5
@@ -2077,7 +2084,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 350, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &773536704
 Animator:
@@ -2209,7 +2216,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 125, y: -75}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &860474536
@@ -2232,7 +2239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1564248411, guid: a8343103f9ca7924e912ace91c058f15, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3179,6 +3186,7 @@ MonoBehaviour:
   checkInBoxContainer: {fileID: 936368093}
   checkInBoxList: []
   sprite: {fileID: 1463505987, guid: 77f3389402e552c49928fe924981bed6, type: 3}
+  loginDay: 0
   continueButton: {fileID: 735938100}
   birthdayCard: {fileID: 1156937}
 --- !u!1 &1287137764
@@ -4101,10 +4109,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 773536703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -9.04, y: -2.58}
-  m_SizeDelta: {x: 350.61, y: 280.85}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1927566081
 MonoBehaviour:
@@ -4119,7 +4127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8018868, g: 0.7602795, b: 0.7602795, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4375,15 +4383,15 @@ RectTransform:
   m_GameObject: {fileID: 2093467432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 773536703}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1200, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2093467434
 MonoBehaviour:
@@ -4405,7 +4413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 36fb4b23abdcb8e459af62d30b2f423c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

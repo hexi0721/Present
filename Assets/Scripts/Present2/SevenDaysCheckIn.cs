@@ -32,11 +32,11 @@ public class SevenDaysCheckIn : MonoBehaviour
 
     DateTime birthDay;
     [SerializeField] int startDay , today;
-    // TimeSpan Span; // 時間差
 
     [SerializeField] GameObject checkInBoxContainer;
-    [SerializeField] List<CheckInBox> checkInBoxList= new List<CheckInBox>();
+    [SerializeField] List<CheckInBox> checkInBoxList;
     public Sprite sprite;
+    public int loginDay;
 
     Dictionary<int, string> myDictionary; 
 
@@ -57,11 +57,13 @@ public class SevenDaysCheckIn : MonoBehaviour
             { 6 , "Day7"}
         };
 
+        loginDay = 0;
+
         birthdayCard.SetActive(false);
         continueButton.SetActive(false);
 
         // 修改生日時間
-        birthDay = new DateTime(DateTime.Now.Year, 12, 19, 0, 0, 0);
+        birthDay = new DateTime(DateTime.Now.Year, 12, 20, 0, 0, 0);
         startDay = birthDay.Day - 6;
         today = DateTime.Today.Day;
         //
@@ -80,6 +82,7 @@ public class SevenDaysCheckIn : MonoBehaviour
         string tmpString = "Day" + (today + 1).ToString();
         PlayerPrefs.SetInt(tmpString , 1);
 
+        checkInBoxList = new List<CheckInBox>();
         for (int i = 0; i < checkInBoxContainer.transform.childCount; i++)
         {
             // 當天動畫
@@ -89,14 +92,15 @@ public class SevenDaysCheckIn : MonoBehaviour
             }
 
             // 檢測七天登入
-            Debug.Log($"第{i + 1}天 : " + PlayerPrefs.GetInt(myDictionary[i]));
-            //
+            // Debug.Log($"第{i + 1}天 : " + PlayerPrefs.GetInt(myDictionary[i]));
+            
             checkInBoxList.Add(new CheckInBox(checkInBoxContainer.transform.GetChild(i).transform , PlayerPrefs.GetInt(myDictionary[i])));
+            CheckInBox tmpCheckInBox = checkInBoxList[i];
 
-            var tmpCheckInBox = checkInBoxList[i];
-
-            if (tmpCheckInBox.Getint == 1 && today != i)
+            // 除了今天外 其他有登入打勾
+            if (tmpCheckInBox.Getint == 1 && today != i) 
             {
+                loginDay += 1;
                 tmpCheckInBox._transform.GetChild(0).GetComponent<Image>().sprite = sprite;
             }
                 

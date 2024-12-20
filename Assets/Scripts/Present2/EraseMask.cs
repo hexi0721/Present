@@ -202,7 +202,10 @@ public class EraseMask: MonoBehaviour
             CancelInvoke("getTransparentPercent");
             uiTex.gameObject.SetActive(false);
 
+            // 顯示寶箱
             rewardTreasure.SetActive(true);
+            // 寶箱設定不顯示
+            rewardTreasure.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
 

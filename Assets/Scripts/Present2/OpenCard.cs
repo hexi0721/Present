@@ -9,12 +9,13 @@ public class OpenCard : MonoBehaviour
 
     public GameObject scratchZone , card , gestureSlip , rewardTreasure;
     
-    public EraseMask eraseMask;
+    EraseMask eraseMask;
     bool isFadeIn;
     
 
     private void Awake()
     {
+        eraseMask = scratchZone.GetComponent<EraseMask>();
         card.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(OpenCardFunc);
 
     }
@@ -51,33 +52,15 @@ public class OpenCard : MonoBehaviour
 
         GetComponent<Animator>().enabled = true;
 
-        // StartCoroutine(ExampleCoroutine());
-        
-        
-
         
     }
-
-    /*
-    IEnumerator ExampleCoroutine()
-    {
-
-        yield return new WaitForSeconds(3.0f);
-
-
-        card.SetActive(false);
-        scratchZone.SetActive(true);
-
-        isFadeIn = true;
-    }
-    */
 
     public void AnimatorEnd() // 動畫結束時，觸發事件 
     {
         card.SetActive(false);
         scratchZone.SetActive(true);
         gestureSlip.SetActive(true);
-        rewardTreasure.SetActive(false);
+        // rewardTreasure.SetActive(false);
         isFadeIn = true;
     }
 
