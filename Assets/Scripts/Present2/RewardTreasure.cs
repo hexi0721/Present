@@ -12,11 +12,12 @@ public class RewardTreasure : MonoBehaviour , IPointerClickHandler
         
     public SevenDaysCheckIn sevenDaysCheckIn; // SevenDaysCheckIn script
     public GameObject rewardContainer;
-    public Image reward;
+    Image reward;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        reward = rewardContainer.transform.GetChild(1).GetComponent<Image>();
     }
 
     #region ¨Æ¥ó
@@ -33,7 +34,7 @@ public class RewardTreasure : MonoBehaviour , IPointerClickHandler
     {
 
         rewardContainer.SetActive(true);
-
+        // Debug.Log(sevenDaysCheckIn.loginDay);
         switch (sevenDaysCheckIn.loginDay)
         {
             case 1:

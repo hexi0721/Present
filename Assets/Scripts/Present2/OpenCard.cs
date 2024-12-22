@@ -60,7 +60,7 @@ public class OpenCard : MonoBehaviour
         card.SetActive(false);
         scratchZone.SetActive(true);
         gestureSlip.SetActive(true);
-        // rewardTreasure.SetActive(false);
+        
         isFadeIn = true;
     }
 

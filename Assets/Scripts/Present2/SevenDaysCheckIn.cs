@@ -63,7 +63,7 @@ public class SevenDaysCheckIn : MonoBehaviour
         continueButton.SetActive(false);
 
         // 修改生日時間
-        birthDay = new DateTime(DateTime.Now.Year, 12, 20, 0, 0, 0);
+        birthDay = new DateTime(DateTime.Now.Year, 12, 22, 0, 0, 0);
         startDay = birthDay.Day - 6;
         today = DateTime.Today.Day;
         //
@@ -88,6 +88,7 @@ public class SevenDaysCheckIn : MonoBehaviour
             // 當天動畫
             if (today == i) 
             {
+                loginDay += 1; // 當天登入
                 checkInBoxContainer.transform.GetChild(i).GetComponent<Animator>().enabled = true;
             }
 
@@ -105,7 +106,9 @@ public class SevenDaysCheckIn : MonoBehaviour
             }
                 
         }
-    
+        
+
+
     }
 
     private void Update()
@@ -114,9 +117,11 @@ public class SevenDaysCheckIn : MonoBehaviour
 
         OntheBirthDay(); // 在生日當天，開啟繼續按鈕
 
-
+        // 測試用
+        /*
         DeletePlayerPrefs();
         DeletePlayerPrefsAll();
+        */
     }
 
     private void DeletePlayerPrefsAll()
