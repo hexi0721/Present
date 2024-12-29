@@ -38,17 +38,19 @@ public class RewardTreasure : MonoBehaviour , IPointerClickHandler
         switch (sevenDaysCheckIn.loginDay)
         {
             case 1:
+            case 2:
 
                 reward.sprite = drink[0];
                 break;
 
             case 3:
+            case 4:
 
                 reward.sprite = drink[1];
                 break;
 
             case 5:
-
+            case 6:
                 reward.sprite = drink[2];
                 break;
 

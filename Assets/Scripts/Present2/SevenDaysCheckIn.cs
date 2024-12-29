@@ -31,7 +31,7 @@ public class SevenDaysCheckIn : MonoBehaviour
     }
 
     DateTime birthDay;
-    [SerializeField] int startDay , today;
+    [SerializeField] int startDay , span ;
 
     [SerializeField] GameObject checkInBoxContainer;
     [SerializeField] List<CheckInBox> checkInBoxList;
@@ -57,55 +57,63 @@ public class SevenDaysCheckIn : MonoBehaviour
             { 6 , "Day7"}
         };
 
-        loginDay = 0;
+        
 
         birthdayCard.SetActive(false);
         continueButton.SetActive(false);
 
         // 修改生日時間
-        birthDay = new DateTime(DateTime.Now.Year, 12, 22, 0, 0, 0);
-        startDay = birthDay.Day - 6;
-        today = DateTime.Today.Day;
-        //
-        
+        birthDay = new DateTime(DateTime.Now.Year, 2, 17, 0, 0, 0);
 
-        if(startDay <= today && today <= birthDay.Day)
+        DateTime _today = DateTime.Today;
+        if (birthDay <= new DateTime(DateTime.Now.Year, 1, 6, 0, 0, 0) && birthDay >= new DateTime(DateTime.Now.Year, 1, 1, 0, 0, 0) && _today.Month == 12) // 生日是1/6以前 1/1之後 而登入時間在12月
         {
-            today -= startDay;
-        }/*
+            birthDay = birthDay.AddYears(1);
+        }
+        //
+
+        DateTime startDay = birthDay.AddDays(-6);
+        if (startDay <= _today && _today <= birthDay)
+        {
+            span = Mathf.Abs((_today - startDay).Days);
+            string tmpString = "Day" + (span + 1).ToString();
+            PlayerPrefs.SetInt(tmpString, 1);
+
+            checkInBoxList = new List<CheckInBox>();
+            loginDay = 0;
+            for (int i = 0; i < checkInBoxContainer.transform.childCount; i++)
+            {
+                // 當天動畫
+                if (span == i)
+                {
+                    loginDay += 1; // 當天登入
+                    
+                    checkInBoxContainer.transform.GetChild(i).GetComponent<Animator>().enabled = true;
+                }
+
+                // 檢測七天登入
+                // Debug.Log($"第{i + 1}天 : " + PlayerPrefs.GetInt(myDictionary[i]));
+
+                checkInBoxList.Add(new CheckInBox(checkInBoxContainer.transform.GetChild(i).transform, PlayerPrefs.GetInt(myDictionary[i])));
+                CheckInBox tmpCheckInBox = checkInBoxList[i];
+
+                // 除了今天外 其他有登入打勾
+                if (tmpCheckInBox.Getint == 1 && span != i)
+                {
+                    loginDay += 1;
+                    
+                    tmpCheckInBox._transform.GetChild(0).GetComponent<Image>().sprite = sprite;
+                }
+
+            }
+        }
         else
         {
             DeletePlayerPrefsAll();
         }
-        */
         
-        string tmpString = "Day" + (today + 1).ToString();
-        PlayerPrefs.SetInt(tmpString , 1);
-
-        checkInBoxList = new List<CheckInBox>();
-        for (int i = 0; i < checkInBoxContainer.transform.childCount; i++)
-        {
-            // 當天動畫
-            if (today == i) 
-            {
-                loginDay += 1; // 當天登入
-                checkInBoxContainer.transform.GetChild(i).GetComponent<Animator>().enabled = true;
-            }
-
-            // 檢測七天登入
-            // Debug.Log($"第{i + 1}天 : " + PlayerPrefs.GetInt(myDictionary[i]));
-            
-            checkInBoxList.Add(new CheckInBox(checkInBoxContainer.transform.GetChild(i).transform , PlayerPrefs.GetInt(myDictionary[i])));
-            CheckInBox tmpCheckInBox = checkInBoxList[i];
-
-            // 除了今天外 其他有登入打勾
-            if (tmpCheckInBox.Getint == 1 && today != i) 
-            {
-                loginDay += 1;
-                tmpCheckInBox._transform.GetChild(0).GetComponent<Image>().sprite = sprite;
-            }
-                
-        }
+        
+        
         
 
 
@@ -126,12 +134,11 @@ public class SevenDaysCheckIn : MonoBehaviour
 
     private void DeletePlayerPrefsAll()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
-            Debug.Log("已清除所有 PlayerPrefs 資料");
-        }
+        
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Debug.Log("已清除所有 PlayerPrefs 資料");
+        
     }
 
     private void DeletePlayerPrefs()
