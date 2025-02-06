@@ -13,7 +13,6 @@ public class EraseMask: MonoBehaviour
     public bool isEndEraser;
 
     public RawImage uiTex;
-    public Image image;
     Texture2D tex;
     Texture2D MyTex;
     int mWidth;
@@ -26,6 +25,7 @@ public class EraseMask: MonoBehaviour
     float colorA;
 
     public GameObject gestureSlip , rewardTreasure;
+    [SerializeField] AutoScroll autoScroll;
     
     
     void Awake()
@@ -43,13 +43,6 @@ public class EraseMask: MonoBehaviour
         isEndEraser = false;
         isStartEraser = false;
 
-        // 將RawImage變得跟Image一樣大
-        float scaleW = image.GetComponent<RectTransform>().rect.width / mWidth;
-        float scaleH = image.GetComponent<RectTransform>().rect.height / mHeight;
-        uiTex.gameObject.GetComponent<RectTransform>().localScale = new Vector3(scaleW , scaleH , 0);
-
-        
-        
     }
 
 
@@ -201,6 +194,9 @@ public class EraseMask: MonoBehaviour
             isEndEraser = true;
             CancelInvoke("getTransparentPercent");
             uiTex.gameObject.SetActive(false);
+
+            // scroll 開始滾動
+            autoScroll.IsScrolling = true;
 
             // 顯示寶箱
             rewardTreasure.SetActive(true);
