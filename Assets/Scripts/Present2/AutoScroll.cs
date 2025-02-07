@@ -24,17 +24,16 @@ public class AutoScroll : MonoBehaviour
 
     void Update()
     {
-        if (scrollRect.verticalNormalizedPosition <= 0)
-        {
-            isScrolling = false;
-        }
-        else
-        {
-            isScrolling = true;
-        }
+        
+
 
         if (isScrolling)
         {
+            if (scrollRect.verticalNormalizedPosition <= 0)
+            {
+                return;
+            }
+
             float newPosition = scrollRect.verticalNormalizedPosition - (scrollSpeed * Time.deltaTime / scrollRect.content.rect.height);
             scrollRect.verticalNormalizedPosition = Mathf.Clamp01(newPosition);
 

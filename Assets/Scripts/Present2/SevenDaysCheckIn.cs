@@ -109,7 +109,7 @@ public class SevenDaysCheckIn : MonoBehaviour
         birthdayCard.SetActive(false);
         continueButton.SetActive(false);
 
-        birthDay = new DateTime(DateTime.Now.Year, 1, 17, 0, 0, 0); // 修改生日時間
+        birthDay = new DateTime(DateTime.Now.Year, 2, 17, 0, 0, 0); // 修改生日時間
 
         //DateTime _today = DateTime.Today;
         DateTime _today = timeFetcher.GetNetworkTime();
