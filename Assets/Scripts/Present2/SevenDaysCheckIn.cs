@@ -92,6 +92,7 @@ public class SevenDaysCheckIn : MonoBehaviour
 
     TimeFetcher timeFetcher = new TimeFetcher(); // class TimeFetcher 
 
+    [SerializeField] Button debugForceOpen;
 
     private void Start()
     {
@@ -109,7 +110,7 @@ public class SevenDaysCheckIn : MonoBehaviour
         birthdayCard.SetActive(false);
         continueButton.SetActive(false);
 
-        birthDay = new DateTime(DateTime.Now.Year, 2, 17, 0, 0, 0); // 修改生日時間
+        birthDay = new DateTime(DateTime.Now.Year, 3, 29, 0, 0, 0); // 修改生日時間
 
         //DateTime _today = DateTime.Today;
         DateTime _today = timeFetcher.GetNetworkTime();
@@ -167,6 +168,13 @@ public class SevenDaysCheckIn : MonoBehaviour
         {
             DeletePlayerPrefsAll();
         }
+
+        // 測試用
+        debugForceOpen.onClick.AddListener(() => 
+        {
+            birthDay = DateTime.Now;
+
+        });
 
     }
 

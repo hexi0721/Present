@@ -9,13 +9,12 @@ public class OpenCard : MonoBehaviour
 
     public GameObject scratchZone , card , gestureSlip , rewardTreasure;
     
-    EraseMask eraseMask;
+
     bool isFadeIn;
     
 
     private void Awake()
     {
-        eraseMask = scratchZone.GetComponent<EraseMask>();
         card.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(OpenCardFunc);
 
     }

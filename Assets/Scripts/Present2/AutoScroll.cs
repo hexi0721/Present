@@ -6,27 +6,22 @@ using UnityEngine.UI;
 public class AutoScroll : MonoBehaviour
 {
     ScrollRect scrollRect;
-    [SerializeField] float scrollSpeed = 20f;
+    [SerializeField] float scrollSpeed;
 
     bool isScrolling;
 
-    public bool IsScrolling 
+    public void SetUp(bool isScrolling)
     {
-        get => isScrolling; 
-        set => isScrolling = value;
+        this.isScrolling = isScrolling;
     }
 
     private void Start()
     {
         scrollRect = GetComponent<ScrollRect>();
-        isScrolling = false;
     }
 
     void Update()
     {
-        
-
-
         if (isScrolling)
         {
             if (scrollRect.verticalNormalizedPosition <= 0)
@@ -34,8 +29,8 @@ public class AutoScroll : MonoBehaviour
                 return;
             }
 
-            float newPosition = scrollRect.verticalNormalizedPosition - (scrollSpeed * Time.deltaTime / scrollRect.content.rect.height);
-            scrollRect.verticalNormalizedPosition = Mathf.Clamp01(newPosition);
+            float newPosition = scrollRect.verticalNormalizedPosition - scrollSpeed * Time.deltaTime;// / scrollRect.content.rect.height);
+            scrollRect.verticalNormalizedPosition = Mathf.Clamp01(newPosition); // 當 value 小於 0 時，Mathf.Clamp01 會返回 0；當 value 大於 1 時，會返回 1；否則，返回 value 本身。
 
         }
     }

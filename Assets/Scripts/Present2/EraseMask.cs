@@ -24,7 +24,7 @@ public class EraseMask: MonoBehaviour
     float maxColorA;
     float colorA;
 
-    public GameObject gestureSlip , rewardTreasure;
+    public GameObject rewardTreasure;
     [SerializeField] AutoScroll autoScroll;
     
     
@@ -48,21 +48,26 @@ public class EraseMask: MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnPointerDown(Input.mousePosition);
 
+        if(!isEndEraser)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                OnPointerDown(Input.mousePosition);
+
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                OnPointerUp();
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                OnDrag(Input.mousePosition);
+            }
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            OnPointerUp();
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            OnDrag(Input.mousePosition);
-        }
     }
 
     /// <summary>
@@ -92,20 +97,18 @@ public class EraseMask: MonoBehaviour
     bool twoPoints = false;
     Vector2 lastPos;//最後一個點
     Vector2 penultPos;//倒數第二個點
-    float radius = 12f;
+    //float radius = 12f;
+    float radius = 25f;
     float distance = 1f;
     
     
     public void OnPointerDown(Vector2 position)
     {
-        if (isEndEraser) { return; }
-
         CheckPoint(position);
     }
     
     public void OnDrag(Vector2 position)
     {
-        if (isEndEraser) { return; }
         if (twoPoints && Vector2.Distance(position, lastPos) > distance)//如果兩次記錄的鼠標坐標距離大於一定的距離，開始記錄鼠標的點
         {
             Vector2 pos = position;
@@ -113,7 +116,7 @@ public class EraseMask: MonoBehaviour
 
             CheckPoint(position);
             int segments = (int)(dis / radius);//計算出平滑的段數                                              
-            segments = Mathf.Clamp(segments , 1 , 10);
+            segments = Mathf.Clamp(segments , 1 , 20);
                 
             Vector2[] points = Beizier(penultPos, lastPos, pos, segments);//進行貝塞爾平滑
             for (int i = 0; i < points.Length; i++)
@@ -133,8 +136,6 @@ public class EraseMask: MonoBehaviour
 
     public void OnPointerUp()
     {
-        if (isEndEraser) { return; }
-
         twoPoints = false;
     }
 
@@ -143,7 +144,7 @@ public class EraseMask: MonoBehaviour
 
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(pScreenPos);
         Vector3 localPos = uiTex.gameObject.transform.InverseTransformPoint(worldPos);
-
+        Debug.Log(localPos);
         if (localPos.x > -mWidth / 2 && localPos.x < mWidth / 2 && localPos.y > -mHeight / 2 && localPos.y < mHeight / 2)
         {
             for (int i = (int)localPos.x - brushSize; i < (int)localPos.x + brushSize; i++)
@@ -157,7 +158,7 @@ public class EraseMask: MonoBehaviour
                     if (j < 0) { if (j < -mHeight / 2) { continue; } }
                     if (j > 0) { if (j > mHeight / 2) { continue; } }
 
-                    Color col = MyTex.GetPixel(i + (int)mWidth / 2, j + (int)mHeight / 2);
+                    Color col = MyTex.GetPixel(i + (int)mWidth / 2, j + (int)mHeight / 2); // 要加(int)mWidth / 2 和 (int)mHeight / 2，猜測是pixel原點本來是最左下角 加的話可以讓原點變到中間
                     if (col.a != 0f)
                     {
                         col.a = 0.0f;
@@ -178,17 +179,15 @@ public class EraseMask: MonoBehaviour
             MyTex.Apply();
         }
     }
+
+
+    // 檢測當前刮刮卡 進度
     double fate;
-    /// <summary> 
-    /// 檢測當前刮刮卡 進度
-    /// </summary>
-    /// <returns></returns>
     public void getTransparentPercent()
     {
-        if (isEndEraser) { return; }
         fate = colorA / maxColorA * 100;
         fate = (float)Math.Round(fate, 2);
-        // Debug.Log("當前百分比: " + fate);
+        Debug.Log("當前百分比: " + fate);
         if (fate >= rate)
         {
             isEndEraser = true;
@@ -196,12 +195,14 @@ public class EraseMask: MonoBehaviour
             uiTex.gameObject.SetActive(false);
 
             // scroll 開始滾動
-            autoScroll.IsScrolling = true;
+            autoScroll.SetUp(true);
 
+            /*
             // 顯示寶箱
             rewardTreasure.SetActive(true);
             // 寶箱設定不顯示
             rewardTreasure.transform.GetChild(1).gameObject.SetActive(false);
+            */
         }
     }
 

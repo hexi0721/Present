@@ -13,6 +13,8 @@ public class RewardTreasure : MonoBehaviour , IPointerClickHandler
     public SevenDaysCheckIn sevenDaysCheckIn; // SevenDaysCheckIn script
     public GameObject rewardContainer;
     Image reward;
+    bool isOpen = false;
+
 
     private void Start()
     {
@@ -20,20 +22,32 @@ public class RewardTreasure : MonoBehaviour , IPointerClickHandler
         reward = rewardContainer.transform.GetChild(1).GetComponent<Image>();
     }
 
-    #region ¨Æ¥ó
     public void OnPointerClick(PointerEventData eventData)
     {
-        animator.SetBool("IsOpen", true);
+        if (isOpen == false)
+        {
+            animator.SetBool("IsOpen", true);
+            isOpen = true;
+            rewardContainer.SetActive(true);
+            OpenRewardTreasure();
+        }
+        else
+        {
+
+            animator.SetBool("IsOpen", false);
+            isOpen = false;
+            rewardContainer.SetActive(false);
+        }
+
+        
 
     }
 
 
-    #endregion
-
     public void OpenRewardTreasure()
     {
 
-        rewardContainer.SetActive(true);
+        
         // Debug.Log(sevenDaysCheckIn.loginDay);
         switch (sevenDaysCheckIn.loginDay)
         {
